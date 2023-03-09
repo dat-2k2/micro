@@ -1,7 +1,7 @@
 .\objects\stm32f2xx_hal_gpio.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_gpio.c
 .\objects\stm32f2xx_hal_gpio.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h
-.\objects\stm32f2xx_hal_gpio.o: C:\Users\HH\source\repos\micro\MyBlinkyKeil\RTE\Device\STM32F207IGHx\stm32f2xx_hal_conf.h
-.\objects\stm32f2xx_hal_gpio.o: C:\Users\HH\source\repos\micro\MyBlinkyKeil\RTE\RTE_Components.h
+.\objects\stm32f2xx_hal_gpio.o: F:\git\micro\Lab1\RTE\Device\STM32F207IGHx\stm32f2xx_hal_conf.h
+.\objects\stm32f2xx_hal_gpio.o: F:\git\micro\Lab1\RTE\RTE_Components.h
 .\objects\stm32f2xx_hal_gpio.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal_rcc.h
 .\objects\stm32f2xx_hal_gpio.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal_def.h
 .\objects\stm32f2xx_hal_gpio.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h

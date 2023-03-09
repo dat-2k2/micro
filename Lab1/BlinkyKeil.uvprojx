@@ -413,9 +413,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>test.c</FileName>
+              <FileName>BlinkyLed.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\test.c</FilePath>
+              <FilePath>.\BlinkyLed.c</FilePath>
             </File>
           </Files>
         </Group>

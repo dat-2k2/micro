@@ -1,5 +1,5 @@
 --cpu Cortex-M3
-".\objects\test.o"
+".\objects\blinkyled.o"
 ".\objects\stm32f2xx_hal.o"
 ".\objects\stm32f2xx_hal_cortex.o"
 ".\objects\stm32f2xx_hal_gpio.o"
