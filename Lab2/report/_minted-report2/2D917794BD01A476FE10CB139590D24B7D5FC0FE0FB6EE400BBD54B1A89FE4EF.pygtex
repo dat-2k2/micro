@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}stm32f2xx.h\PYGZdq{}}\PYG{c+c1}{ // Device header}
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}Delay function\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} }
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{delay}\PYG{+w}{ }\PYG{p}{()}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}Declaration of type of variables\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} e}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{long}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Counter for blinky delay }
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}Initialization of variables\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} }
+\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }
+\PYG{c+c1}{//\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}Main cycle of algorithm\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} }
+\PYG{+w}{ }\PYG{k}{for}\PYG{p}{(}\PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{200000}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}\PYGZcb{}}\PYG{+w}{ }\PYG{c+c1}{// Delay }
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{c+cm}{/*\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{} }
+\PYG{c+cm}{ Main function }
+\PYG{c+cm}{ *\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{main}\PYG{+w}{ }\PYG{p}{()}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{AHB1ENR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{6}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Enable port G clocking }
+\PYG{+w}{ }\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{MODER}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{MODER}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{15}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{14}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(;;)}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{ }\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ODR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{7}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{delay}\PYG{+w}{ }\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ODR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{7}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{delay}\PYG{+w}{ }\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

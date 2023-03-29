@@ -1,18 +1,17 @@
 //WAKEUP -> PG6, USER ->PG8
 #include "stm32f2xx.h"
 #include "stm32f2xx_hal_gpio.h"
+#define TIME_DELAY 200000
 unsigned int j;
 void delay(){
 	for (j = 0 ; j < 10; j++){};
 }
 void PG7(){
 	while (1){
-		for (j = 0; j < 20000;j++){
 		GPIOG->ODR |= (1ul << 7);
-		for (j = 0; j < 2000; j++) {};
+		for (j = 0; j < TIME_DELAY; j++) {};
 		GPIOG->ODR &= ~(1ul << 7);
-		for (j = 0; j < 2000; j++) {};
-		}
+		for (j = 0; j < TIME_DELAY; j++) {};
 	}
 }
 void PG7off(){
@@ -26,24 +25,20 @@ void PG8off(){
 }
 void PG6(){
 	while(1){
-		for (j = 0; j < 20000;j++){
 		GPIOG->ODR |= (1ul << 6);
-		for (j = 0; j < 20000; j++) {};
+		for (j = 0; j < TIME_DELAY; j++) {};
 		GPIOG->ODR &= ~(1ul << 6);
-		for (j = 0; j < 20000; j++) {};
+		for (j = 0; j < TIME_DELAY; j++) {};
 		}
-	}
 }
 
 void PG8(){
 	while (1){
-		for (j = 0; j < 20000;j++){
 		GPIOG->ODR |= (1ul << 8);
-		for (j = 0; j < 20000; j++) {};
+		for (j = 0; j < TIME_DELAY; j++) {};
 		GPIOG->ODR &= ~(1ul << 8);
-		for (j = 0; j < 20000; j++) {};
+		for (j = 0; j < TIME_DELAY; j++) {};
 		}
-	}
 }
 
 
@@ -81,37 +76,30 @@ int main()
 	//setup the EXTI Wakeup event for bit G15 and A0
 	//unmask
 	EXTI->IMR |= 1ul;
-	EXTI->IMR |=	(1ul<<15);
+	EXTI->IMR |= (1ul<<15);
 	//falling trigger for input PG15 /PC13
-	EXTI->RTSR = EXTI->RTSR & ~0xA000;
-	EXTI->FTSR = EXTI->FTSR | 0xA000;
-	//require to turn off falling trigger at PA0??
-
+	EXTI->RTSR = EXTI->RTSR & ~(1ul<<15);
+	EXTI->FTSR = EXTI->FTSR | (1ul<<15);
 	//rising trigger for input PA0
+	EXTI->FTSR = EXTI->FTSR & ~1ul;
 	EXTI->RTSR = EXTI->RTSR | 1ul ;
 	//pending reg
 	EXTI->PR |= 1ul;
 	EXTI->PR |= (1ul<<15);
 	//config external interrupt
 	//EXTI15, port G
-	SYSCFG->EXTICR[3] |= 0x6030 ;
+	SYSCFG->EXTICR[3] |= 0x6000 ;
 	//EXTI0, port A
 	SYSCFG->EXTICR[0] |= 0x0000;
 		for (i = 0; i < 10; i++) {};
 
 	//NVIC setup
-	
-	
-	//Priority Grouping: 4 bits: 2 bits preemption (group priority) and 2 bits sub-priority
-	//Compare: preemption first, then sub. Lower value, higher priority, lower urgency  
-	//Eg: ISR12 (1100) > ISR 9 (1001) -> ISR12 more urgent than ISR9 -> ISR12 can preempt ISR9
-	NVIC_SetPriorityGrouping(4); //2 preempt
-	//set priority
-
-			
-	NVIC_SetPriority(EXTI15_10_IRQn,2);
-	NVIC_SetPriority(EXTI0_IRQn, 4);
-			
+	NVIC_SetPriorityGrouping(4); //2 preempt (bb00)
+	//set priority	
+	NVIC_SetPriority(EXTI15_10_IRQn,4);
+	NVIC_SetPriority(EXTI0_IRQn, 2);
+	//here the PA0 can preempt PG15
+	// Event handler interrupts blinking process of PG7
 	NVIC_EnableIRQ(EXTI15_10_IRQn);
 	NVIC_EnableIRQ(EXTI0_IRQn);
 //PG7();
@@ -119,6 +107,7 @@ int main()
 	PG7();
 	}
 }
+	
 void EXTI0_IRQHandler(){
 	//
 	PG8off();

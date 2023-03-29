@@ -13,4 +13,3 @@
 .\objects\lab3.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h
 .\objects\lab3.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\lab3.o: C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal_gpio_ex.h
-.\objects\lab3.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

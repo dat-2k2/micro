@@ -1,5 +1,5 @@
 Dependencies for Project 'Lab3', Target 'Target 1': (DO NOT MODIFY !)
-F (.\lab3.c)(0x640737F8)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I F:\git\micro\Lab3\RTE-I F:\git\micro\Lab3\RTE\Device\STM32F207IGHx-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F207xx-o .\objects\lab3.o --omf_browse .\objects\lab3.crf --depend .\objects\lab3.d)
+F (.\lab3.c)(0x6410230F)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I F:\git\micro\Lab3\RTE-I F:\git\micro\Lab3\RTE\Device\STM32F207IGHx-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F207xx-o .\objects\lab3.o --omf_browse .\objects\lab3.crf --depend .\objects\lab3.d)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h)(0x60ACF100)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f207xx.h)(0x60ACF100)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include\core_cm3.h)(0x626F912E)
@@ -14,7 +14,6 @@ I (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\In
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h)(0x60ACF102)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x54C28C08)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal_gpio_ex.h)(0x60ACF12E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x54C28C08)
 F (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c)(0x60ACF12C)(-c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I F:\git\micro\Lab3\RTE-I F:\git\micro\Lab3\RTE\Device\STM32F207IGHx-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.9.0\CMSIS\Core\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc-D__UVISION_VERSION="515" -D_RTE_ -DSTM32F207xx-o .\objects\stm32f2xx_hal.o --omf_browse .\objects\stm32f2xx_hal.crf --depend .\objects\stm32f2xx_hal.d)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F2xx_DFP\2.10.0\Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h)(0x60ACF12C)
 I (F:\git\micro\Lab3\RTE\Device\STM32F207IGHx\stm32f2xx_hal_conf.h)(0x61B0985A)
