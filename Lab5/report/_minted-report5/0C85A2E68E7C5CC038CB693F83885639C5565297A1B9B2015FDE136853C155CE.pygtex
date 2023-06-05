@@ -1,0 +1,247 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/** }
+\PYG{c+cm}{ }
+\PYG{c+cm}{**********************************************************************}
+\PYG{c+cm}{******** }
+\PYG{c+cm}{ *Name: DACWave.c }
+\PYG{c+cm}{ *Purpose: DAC for MCBSTM32F200 }
+\PYG{c+cm}{ * }
+\PYG{c+cm}{ }
+\PYG{c+cm}{**********************************************************************}
+\PYG{c+cm}{******** }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{c+cm}{/* Includes \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}stm32f2xx\PYGZus{}hal.h\PYGZdq{}}\PYG{c+c1}{ }
+\PYG{c+cm}{/* Private typedef \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{c+cm}{/* Private define \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{c+cm}{/* Definition for DAC clock resources */}\PYG{+w}{ }
+\PYG{c+cp}{\PYGZsh{}define DACx\PYGZus{}CHANNEL1\PYGZus{}GPIO\PYGZus{}CLK\PYGZus{}ENABLE() \PYGZus{}\PYGZus{}GPIOA\PYGZus{}CLK\PYGZus{}ENABLE() }
+\PYG{c+cp}{\PYGZsh{}define DMAx\PYGZus{}CLK\PYGZus{}ENABLE() \PYGZus{}\PYGZus{}DMA1\PYGZus{}CLK\PYGZus{}ENABLE() }
+\PYG{c+cm}{/* Definition for DACx Channel1 Pin */}\PYG{+w}{ }
+\PYG{c+cp}{\PYGZsh{}define DACx\PYGZus{}CHANNEL1\PYGZus{}PIN GPIO\PYGZus{}PIN\PYGZus{}4}
+\PYG{c+cp}{\PYGZsh{}define DACx\PYGZus{}CHANNEL1\PYGZus{}GPIO\PYGZus{}PORT GPIOA }
+\PYG{c+cm}{/* Definition for DACx\PYGZsq{}s Channel1 */}\PYG{+w}{ }
+\PYG{c+cp}{\PYGZsh{}define DACx\PYGZus{}CHANNEL1 DAC\PYGZus{}CHANNEL\PYGZus{}1 }
+\PYG{c+cm}{/* Definition for DACx\PYGZsq{}s DMA Channel1 */}\PYG{+w}{ }
+\PYG{c+cp}{\PYGZsh{}define DACx\PYGZus{}DMA\PYGZus{}CHANNEL1 DMA\PYGZus{}CHANNEL\PYGZus{}7 }
+\PYG{c+cp}{\PYGZsh{}define DACx\PYGZus{}DMA\PYGZus{}STREAM1 DMA1\PYGZus{}Stream5 }
+\PYG{c+cm}{/* Private macro \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{c+cm}{/* Private variables \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{n}{DAC\PYGZus{}HandleTypeDef}\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{;}\PYG{+w}{ }
+\PYG{k}{static}\PYG{+w}{ }\PYG{n}{DAC\PYGZus{}ChannelConfTypeDef}\PYG{+w}{ }\PYG{n}{sConfig}\PYG{p}{;}\PYG{+w}{ }
+
+\PYG{c+c1}{//sine wave look up table, for 10 samples. }
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{uint16\PYGZus{}t}\PYG{+w}{ }\PYG{n}{Wave}\PYG{p}{[}\PYG{l+m+mi}{10}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{l+m+mi}{2048}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3252}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3996}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3996}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3252}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2048}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{844}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{844}\PYG{p}{\PYGZcb{};}\PYG{+w}{ }
+
+\PYG{c+cm}{/* Private function prototypes \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{DAC\PYGZus{}Ch1\PYGZus{}WaveConfig}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{);}\PYG{+w}{ }
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{TIM6\PYGZus{}Config}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{);}\PYG{+w}{ }
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{SystemClock\PYGZus{}Config}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{);}\PYG{+w}{ }
+\PYG{c+cm}{/* Private functions \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}*/}\PYG{+w}{ }
+\PYG{c+cm}{/** }
+\PYG{c+cm}{ * @brief DAC MSP De\PYGZhy{}Initialization }
+\PYG{c+cm}{ * This function frees the hardware resources: }
+\PYG{c+cm}{ * \PYGZhy{} Disable the Peripheral\PYGZsq{}s clock }
+\PYG{c+cm}{ * \PYGZhy{} Revert GPIO to their default state }
+\PYG{c+cm}{ * @param hadc: DAC handle pointer }
+\PYG{c+cm}{ * @retval None }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{HAL\PYGZus{}DAC\PYGZus{}MspInit}\PYG{p}{(}\PYG{n}{DAC\PYGZus{}HandleTypeDef}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{hdac}\PYG{p}{)}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitTypeDef}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}HandleTypeDef}\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}1\PYGZhy{} Enable peripherals and GPIO Clocks }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* DAC Periph clock enable */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{\PYGZus{}\PYGZus{}DAC\PYGZus{}CLK\PYGZus{}ENABLE}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Enable GPIO clock ****************************************/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}CHANNEL1\PYGZus{}GPIO\PYGZus{}CLK\PYGZus{}ENABLE}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* DMA1 clock enable */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{DMAx\PYGZus{}CLK\PYGZus{}ENABLE}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}2\PYGZhy{} Configure peripheral GPIO }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* DAC Channel1 GPIO pin configuration */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Pin}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}CHANNEL1\PYGZus{}PIN}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Mode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}MODE\PYGZus{}ANALOG}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Pull}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}NOPULL}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}GPIO\PYGZus{}Init}\PYG{p}{(}\PYG{n}{DACx\PYGZus{}CHANNEL1\PYGZus{}GPIO\PYGZus{}PORT}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}3\PYGZhy{} Configure the DMA streams }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Set the parameters to be configured for Channel1*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Instance}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}DMA\PYGZus{}STREAM1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Channel}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}DMA\PYGZus{}CHANNEL1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Direction}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}MEMORY\PYGZus{}TO\PYGZus{}PERIPH}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{PeriphInc}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}PINC\PYGZus{}DISABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{MemInc}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}MINC\PYGZus{}ENABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{PeriphDataAlignment}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}PDATAALIGN\PYGZus{}BYTE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{MemDataAlignment}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}MDATAALIGN\PYGZus{}BYTE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Mode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}CIRCULAR}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Priority}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}PRIORITY\PYGZus{}HIGH}\PYG{p}{;}\PYG{+w}{ }
+
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{FIFOMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}FIFOMODE\PYGZus{}DISABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{FIFOThreshold}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}FIFO\PYGZus{}THRESHOLD\PYGZus{}HALFFULL}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{MemBurst}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}MBURST\PYGZus{}SINGLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{PeriphBurst}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}PBURST\PYGZus{}SINGLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}DMA\PYGZus{}Init}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Associate the initialized DMA handle to the the DAC handle }
+\PYG{c+cm}{*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{\PYGZus{}\PYGZus{}HAL\PYGZus{}LINKDMA}\PYG{p}{(}\PYG{n}{hdac}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DMA\PYGZus{}Handle1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{hdma\PYGZus{}dac1}\PYG{p}{);}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{c+cm}{/** }
+\PYG{c+cm}{ * @brief TIM MSP Initialization }
+\PYG{c+cm}{ * This function configures the hardware resources: }
+\PYG{c+cm}{ * \PYGZhy{} Peripheral\PYGZsq{}s clock enable }
+\PYG{c+cm}{ * \PYGZhy{} Peripheral\PYGZsq{}s GPIO Configuration }
+\PYG{c+cm}{ * @param htim: TIM handle pointer }
+\PYG{c+cm}{ * @retval None }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{HAL\PYGZus{}TIM\PYGZus{}Base\PYGZus{}MspInit}\PYG{p}{(}\PYG{n}{TIM\PYGZus{}HandleTypeDef}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{)}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* TIM6 Periph clock enable */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{\PYGZus{}\PYGZus{}TIM6\PYGZus{}CLK\PYGZus{}ENABLE}\PYG{p}{();}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{c+cm}{/** }
+\PYG{c+cm}{ * @brief Main program. }
+\PYG{c+cm}{ * @param None }
+\PYG{c+cm}{ * @retval None }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* STM32F2xx HAL library initialization: }
+\PYG{c+cm}{ \PYGZhy{} Configure the Flash prefetch, instruction and Data }
+\PYG{c+cm}{caches }
+\PYG{c+cm}{ \PYGZhy{} Configure the Systick to generate an interrupt each 1 }
+\PYG{c+cm}{msec }
+\PYG{c+cm}{ \PYGZhy{} Set NVIC Group Priority to 4 }
+\PYG{c+cm}{ \PYGZhy{} Global MSP (MCU Support Package) initialization }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}Init}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Configure the system clock to have a system clock = 120 MHz }
+\PYG{c+cm}{*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{SystemClock\PYGZus{}Config}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}1\PYGZhy{} Configure the DAC peripheral }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{.}\PYG{n}{Instance}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DAC}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}2\PYGZhy{} Configure the TIM peripheral }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{TIM6\PYGZus{}Config}\PYG{p}{();}\PYG{+w}{ }
+
+\PYG{+w}{ }\PYG{c+cm}{/* Wave generator \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{c+cm}{*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{DAC\PYGZus{}Ch1\PYGZus{}WaveConfig}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Infinite loop */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}\PYGZcb{}}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{c+cm}{/** }
+\PYG{c+cm}{ * @brief System Clock Configuration }
+\PYG{c+cm}{ * The system Clock is configured as follow : }
+\PYG{c+cm}{ * System Clock source = PLL (HSE) }
+\PYG{c+cm}{ * SYSCLK(Hz) = 120000000 }
+\PYG{c+cm}{ * HCLK(Hz) = 120000000 }
+\PYG{c+cm}{ * AHB Prescaler = 1 }
+\PYG{c+cm}{ * APB1 Prescaler = 4 }
+\PYG{c+cm}{ * APB2 Prescaler = 2 }
+\PYG{c+cm}{ * HSE Frequency(Hz) = 25000000 }
+\PYG{c+cm}{ * PLL\PYGZus{}M = 25 }
+\PYG{c+cm}{ * PLL\PYGZus{}N = 240}
+\PYG{c+cm}{ * PLL\PYGZus{}P = 2 }
+\PYG{c+cm}{ * PLL\PYGZus{}Q = 5 }
+\PYG{c+cm}{ * VDD(V) = 3.3}
+\PYG{c+cm}{ * Flash Latency(WS) = 3 }
+\PYG{c+cm}{ * @param None }
+\PYG{c+cm}{ * @retval None }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{SystemClock\PYGZus{}Config}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitTypeDef}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitTypeDef}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Enable HSE Oscillator and activate PLL with HSE as source */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{OscillatorType}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OSCILLATORTYPE\PYGZus{}HSE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{HSEState}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}HSE\PYGZus{}ON}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{PLL}\PYG{p}{.}\PYG{n}{PLLState}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}PLL\PYGZus{}ON}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{PLL}\PYG{p}{.}\PYG{n}{PLLSource}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}PLLSOURCE\PYGZus{}HSE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{PLL}\PYG{p}{.}\PYG{n}{PLLM}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{25}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{PLL}\PYG{p}{.}\PYG{n}{PLLN}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{240}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{PLL}\PYG{p}{.}\PYG{n}{PLLP}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}PLLP\PYGZus{}DIV2}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{.}\PYG{n}{PLL}\PYG{p}{.}\PYG{n}{PLLQ}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}RCC\PYGZus{}OscConfig}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}OscInitStruct}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Select PLL as system clock source and configure the HCLK, }
+\PYG{c+cm}{PCLK1 and PCLK2 }
+\PYG{c+cm}{ clocks dividers */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{.}\PYG{n}{ClockType}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{RCC\PYGZus{}CLOCKTYPE\PYGZus{}SYSCLK}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }
+\PYG{n}{RCC\PYGZus{}CLOCKTYPE\PYGZus{}HCLK}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}CLOCKTYPE\PYGZus{}PCLK1}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}CLOCKTYPE\PYGZus{}PCLK2}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{.}\PYG{n}{SYSCLKSource}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}SYSCLKSOURCE\PYGZus{}PLLCLK}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{.}\PYG{n}{AHBCLKDivider}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}SYSCLK\PYGZus{}DIV1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{.}\PYG{n}{APB1CLKDivider}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}HCLK\PYGZus{}DIV4}\PYG{p}{;}
+\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{.}\PYG{n}{APB2CLKDivider}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}HCLK\PYGZus{}DIV2}\PYG{p}{;}
+
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}RCC\PYGZus{}ClockConfig}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}ClkInitStruct}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{FLASH\PYGZus{}LATENCY\PYGZus{}3}\PYG{p}{);}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{k}{static}\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{DAC\PYGZus{}Ch1\PYGZus{}WaveConfig}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}1\PYGZhy{} Initialize the DAC peripheral }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}DAC\PYGZus{}Init}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}2\PYGZhy{} DAC channel1 Configuration }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{sConfig}\PYG{p}{.}\PYG{n}{DAC\PYGZus{}Trigger}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DAC\PYGZus{}TRIGGER\PYGZus{}T6\PYGZus{}TRGO}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{sConfig}\PYG{p}{.}\PYG{n}{DAC\PYGZus{}OutputBuffer}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{DAC\PYGZus{}OUTPUTBUFFER\PYGZus{}ENABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}DAC\PYGZus{}ConfigChannel}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{sConfig}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}CHANNEL1}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}3\PYGZhy{} Enable DAC Channel1 and associeted DMA }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{	}\PYG{c+c1}{//edit here}
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}DAC\PYGZus{}Start\PYGZus{}DMA}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}CHANNEL1}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{(}\PYG{k+kt}{uint32\PYGZus{}t}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{n}{Wave}\PYG{p}{,}\PYG{+w}{ }
+\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DAC\PYGZus{}ALIGN\PYGZus{}12B\PYGZus{}R}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}4\PYGZhy{} Enable DAC Channel1 }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}DAC\PYGZus{}Start}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}CHANNEL1}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}5\PYGZhy{} Set DAC channel1 DHR12RD register }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}
+\PYG{c+c1}{// }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}DAC\PYGZus{}SetValue}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{DacHandle}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DACx\PYGZus{}CHANNEL1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{DAC\PYGZus{}ALIGN\PYGZus{}12B\PYGZus{}R}\PYG{p}{,}\PYG{+w}{ }
+\PYG{l+m+mi}{4095}\PYG{p}{);}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{c+cm}{/** }
+\PYG{c+cm}{ * @brief TIM6 Configuration }
+\PYG{c+cm}{ * @note TIM6 configuration is based on APB1 frequency }
+\PYG{c+cm}{ * @note TIM6 Update event occurs each TIM6CLK/256 }
+\PYG{c+cm}{ * @param None }
+\PYG{c+cm}{ * @retval None }
+\PYG{c+cm}{ */}\PYG{+w}{ }
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{TIM6\PYGZus{}Config}\PYG{p}{(}\PYG{k+kt}{void}\PYG{p}{)}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{k}{static}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}HandleTypeDef}\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}MasterConfigTypeDef}\PYG{+w}{ }\PYG{n}{MasterConfig}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}1\PYGZhy{} Configure the TIM peripheral }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{	}\PYG{c+cm}{/*Configure TIM6: f\PYGZus{}DACout = */}
+\PYG{+w}{ }\PYG{c+cm}{/* Time base configuration */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Instance}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM6}\PYG{p}{;}\PYG{+w}{ }
+\PYG{c+c1}{//set period of TIM to set period of wave}
+\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Period}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0x100}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{//16ns}
+\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Prescaler}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{6250}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{ClockDivision}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{CounterMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}COUNTERMODE\PYGZus{}UP}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}Base\PYGZus{}Init}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{);}\PYG{+w}{ }
+
+\PYG{+w}{ }\PYG{c+cm}{/* TIM6 TRGO selection */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{MasterConfig}\PYG{p}{.}\PYG{n}{MasterOutputTrigger}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}TRGO\PYGZus{}UPDATE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{MasterConfig}\PYG{p}{.}\PYG{n}{MasterSlaveMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}MASTERSLAVEMODE\PYGZus{}DISABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}TIMEx\PYGZus{}MasterConfigSynchronization}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{MasterConfig}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/*\PYGZsh{}\PYGZsh{}\PYGZhy{}2\PYGZhy{} Enable TIM peripheral counter }
+\PYG{c+cm}{\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}\PYGZsh{}*/}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}Base\PYGZus{}Start}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{);}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{c+cm}{/*********************************** END OF FILE }
+\PYG{c+cm}{*******************************/}
+\end{Verbatim}

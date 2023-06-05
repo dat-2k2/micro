@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.3.8)  26 MAR 2023 14:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 23.1) (preloaded format=pdflatex 2023.3.8)  3 MAY 2023 16:53
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  %&-line parsing enabled.
 **./report3.tex
 (report3.tex
@@ -896,7 +896,7 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 (C:\Program Files\MiKTeX\tex/latex/tools\shellesc.sty
 Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
-Package shellesc Info: Restricted shell escape enabled on input line 77.
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
 )
 (C:\Program Files\MiKTeX\tex/latex/ifplatform\ifplatform.sty
 Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
@@ -906,12 +906,8 @@ Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
 )
 (C:\Program Files\MiKTeX\tex/generic/iftex\ifluatex.sty
 Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
-)
-
-Package ifplatform Warning: 
-    shell escape is disabled, so I can only detect \ifwindows.
-
-) (C:\Program Files\MiKTeX\tex/latex/xstring\xstring.sty
+))
+(C:\Program Files\MiKTeX\tex/latex/xstring\xstring.sty
 (C:\Program Files\MiKTeX\tex/generic/xstring\xstring.tex
 \integerpart=\count441
 \decimalpart=\count442
@@ -942,20 +938,9 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@listing=\toks28
 \c@listing=\count446
 )
-runsystem(if not exist _minted-report3 mkdir _minted-report3)...disabled (restr
-icted).
+runsystem(if not exist _minted-report3 mkdir _minted-report3)...executed.
 
 
-
-! Package minted Error: You must invoke LaTeX with the -shell-escape flag.
-
-See the minted package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.43 
-     
-? 
 (C:\Program Files\MiKTeX\tex/latex/tocbibind\tocbibind.sty
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
 Package tocbibind Info: The document has section divisions on input line 50.
@@ -1136,22 +1121,11 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
 )
 runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > re
-port3.aex <nul: /p x=^%~$PATH:i>> report3.aex)...disabled (restricted).
+port3.aex <nul: /p x=^%~$PATH:i>> report3.aex)...executed.
 
+runsystem(del report3.aex)...executed.
 
-\minted@apppathifexists=
-
-! Package minted Error: You must have `pygmentize' installed to use this packag
-e.
-
-See the minted package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.94 \begin{document}
-                     
-? 
-(report3.aux)
+ (report3.aux)
 \openout1 = `report3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 94.
@@ -1311,14 +1285,8 @@ LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <12> not available
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-Package rerunfilecheck Warning: File `report3.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `report3.out':
-(rerunfilecheck)             Before: A29180B892586C2CD566674AFB99FF39;1092
-(rerunfilecheck)             After:  9B74C04F2C3A0DA04717AC38A40143A8;1004.
+Package rerunfilecheck Info: File `report3.out' has not changed.
+(rerunfilecheck)             Checksum: 9B74C04F2C3A0DA04717AC38A40143A8;1004.
 Package logreq Info: Writing requests to 'report3.run.xml'.
 \openout1 = `report3.run.xml'.
 
@@ -1341,9 +1309,9 @@ pk> <C:\Users\HH\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\lait1200
 x1095.pk> <C:\Users\HH\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\la
 rm1000.pk> <C:\Users\HH\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\l
 arm1440.pk>
-Output written on report3.pdf (9 pages, 148387 bytes).
+Output written on report3.pdf (9 pages, 146851 bytes).
 PDF statistics:
- 485 PDF objects out of 1000 (max. 8388607)
+ 481 PDF objects out of 1000 (max. 8388607)
  16 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,126 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}stm32f2xx.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}define TIME\PYGZus{}DELAY\PYGZus{} 10000ul;}
+\PYG{c+c1}{//Citation: RM as Reference Manual, PM as Prog Manual}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{j}\PYG{p}{;}
+\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{;}
+\PYG{k}{const}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{COUNTER}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{200ul}\PYG{p}{;}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{delay}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{;}\PYG{+w}{ }\PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{};}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{PG8}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ODR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{8}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{PG8off}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ODR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{8}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}\PYG{+w}{ 	}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{PG7}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ODR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{7}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{PG7off}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{		}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ODR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{7}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{main}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{c+c1}{//setup GPIO}
+\PYG{+w}{	}\PYG{c+c1}{//set PAx and PGx as GPIO}
+\PYG{+w}{	}\PYG{c+c1}{//RM: 5.3.10}
+\PYG{+w}{		}\PYG{n}{RCC}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{AHB1ENR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{6}\PYG{p}{));}
+\PYG{+w}{	}\PYG{c+c1}{//set PA0 as input}
+\PYG{+w}{	}\PYG{c+c1}{//RM: 8.4.1}
+\PYG{+w}{		}\PYG{n}{GPIOA}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{MODER}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{		}\PYG{n}{GPIOA}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{MODER}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{	}\PYG{c+c1}{//set PG8 and PG7 as output}
+\PYG{+w}{	}\PYG{c+c1}{//RM: 8.4.1}
+\PYG{+w}{		}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{MODER}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{GPIOG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{MODER}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{14}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{16}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{15}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{17}\PYG{p}{);}\PYG{+w}{  }
+\PYG{+w}{	}\PYG{n}{delay}\PYG{p}{();}
+\PYG{+w}{	}\PYG{c+c1}{//Config the EXTI}
+\PYG{+w}{	}\PYG{c+c1}{//Enable System clock SYSCFG}
+\PYG{+w}{		}\PYG{c+c1}{//RM 5.3.14}
+\PYG{+w}{	}\PYG{n}{RCC}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{APB2ENR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{14}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{RCC}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{APB1ENR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}\PYG{c+c1}{//unmask }
+\PYG{+w}{	}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{IMR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{p}{);}
+\PYG{+w}{	}\PYG{c+c1}{//set line 0 to rising trigger,RM 8.3.4,4}
+\PYG{+w}{	}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{FTSR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{RTSR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}
+\PYG{+w}{	}\PYG{c+c1}{//Reset pending bit , RM 8.3.8}
+\PYG{+w}{	}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{PR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}
+\PYG{+w}{	}\PYG{c+c1}{//Set EXTI0 to capture interrupt from PGAx}
+\PYG{+w}{	}\PYG{c+c1}{//RM 7.2.3}
+\PYG{+w}{	}\PYG{n}{SYSCFG}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{EXTICR}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mh}{0x0000}\PYG{p}{;}
+\PYG{+w}{	}\PYG{n}{delay}\PYG{p}{();}
+\PYG{+w}{	}\PYG{c+c1}{//Configure TIM}
+\PYG{+w}{	}\PYG{c+c1}{//enable update interrupt}
+\PYG{+w}{	}\PYG{c+c1}{//RM 18.4.3}
+\PYG{+w}{	}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{DIER}\PYG{+w}{ }\PYG{o}{|=}\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}\PYG{c+c1}{//f\PYGZus{}TIM8 = f\PYGZus{}SYSCLK/2 = 1.6e6/2 = 8e3*1e3}
+\PYG{+w}{	}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{CR1}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{3}\PYG{p}{);}
+\PYG{+w}{	}\PYG{c+c1}{// freq calling interrupt = f/((PSC+1) * (ARR+1)); }
+\PYG{+w}{	}\PYG{c+c1}{//set prescaler}
+\PYG{+w}{	}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{PSC}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{8000ul\PYGZhy{}1}\PYG{p}{;}
+\PYG{+w}{	}\PYG{c+c1}{//set auto\PYGZhy{}reload value}
+\PYG{+w}{	}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ARR}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1000ul\PYGZhy{}1}\PYG{p}{;}
+\PYG{+w}{	}\PYG{c+c1}{//* \PYGZhy{}1 bc count from 0. Read RM 18.3.1}
+\PYG{+w}{	}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{CR1}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}\PYG{+w}{		}
+
+\PYG{+w}{		}\PYG{c+c1}{//prevent Flash from turning off in stop mode}
+\PYG{+w}{		}\PYG{c+c1}{//must go together}
+\PYG{+w}{		}\PYG{c+c1}{//Power down in deepsleep}
+\PYG{+w}{		}\PYG{n}{PWR}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{CR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{+w}{		}\PYG{c+c1}{//Low power deepsleep}
+\PYG{+w}{		}\PYG{n}{PWR}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{CR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{		}\PYG{c+c1}{//NVIC setup}
+\PYG{+w}{	}\PYG{n}{NVIC\PYGZus{}SetPriorityGrouping}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{);}\PYG{+w}{ }\PYG{c+c1}{//2 preempt (bb00)}
+\PYG{+w}{	}\PYG{c+c1}{//set priority	}
+\PYG{+w}{	}\PYG{n}{NVIC\PYGZus{}SetPriority}\PYG{p}{(}\PYG{n}{EXTI0\PYGZus{}IRQn}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{NVIC\PYGZus{}SetPriority}\PYG{p}{(}\PYG{n}{TIM2\PYGZus{}IRQn}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{);}
+\PYG{+w}{	}\PYG{c+c1}{//enable EXTI}
+\PYG{+w}{	}\PYG{n}{NVIC\PYGZus{}EnableIRQ}\PYG{p}{(}\PYG{n}{EXTI0\PYGZus{}IRQn}\PYG{p}{);}
+\PYG{+w}{	}\PYG{n}{NVIC\PYGZus{}EnableIRQ}\PYG{p}{(}\PYG{n}{TIM2\PYGZus{}IRQn}\PYG{p}{);}
+\PYG{+w}{	}
+\PYG{+w}{	}\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{		}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{((}\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{p}{)}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{CNT}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{p}{((}\PYG{k+kt}{unsigned}\PYG{+w}{ }\PYG{k+kt}{int}\PYG{p}{)}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{ARR}\PYG{+w}{ }\PYG{o}{\PYGZgt{}\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{))\PYGZob{}}
+\PYG{+w}{			}\PYG{n}{PG8off}\PYG{p}{();}
+\PYG{+w}{			}\PYG{n}{PG7}\PYG{p}{();}
+\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{		}\PYG{k}{else}\PYG{p}{\PYGZob{}}
+\PYG{+w}{			}\PYG{n}{PG7off}\PYG{p}{();}
+\PYG{+w}{			}\PYG{n}{PG8}\PYG{p}{();}
+\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+
+
+\PYG{c+c1}{//Setting stop mode, not sleep mode.}
+\PYG{c+c1}{// wake up by any exti line}
+\PYG{c+c1}{//Handling PA0 pressed interrupt, }
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{EXTI0\PYGZus{}IRQHandler}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{c+c1}{//clear interrupt flag}
+\PYG{+w}{	}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{PR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{GPIOA}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{IDR}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{)\PYGZob{}}
+\PYG{+w}{		}\PYG{c+c1}{//enter sleepmode}
+\PYG{+w}{		}\PYG{c+c1}{//change to falling trigger}
+\PYG{+w}{			}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{FTSR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{			}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{RTSR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{		}\PYG{c+c1}{//set to sleep deep and sleep on exit}
+\PYG{+w}{		}\PYG{c+c1}{//PM 4.4.8}
+\PYG{+w}{			}\PYG{n}{SCB}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{SCR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{p}{((}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{2}\PYG{p}{));}
+\PYG{+w}{		}\PYG{c+c1}{//TIM enable}
+\PYG{+w}{		}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}\PYG{k}{else}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{			}\PYG{n}{SCB}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{SCR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{p}{((}\PYG{l+m+mi}{1ul}\PYG{+w}{ }\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{|}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1ul}\PYG{o}{\PYGZlt{}\PYGZlt{}}\PYG{l+m+mi}{2}\PYG{p}{));}
+\PYG{+w}{			}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{FTSR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{			}\PYG{n}{EXTI}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{RTSR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{l+m+mi}{1ul}\PYG{p}{;}
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{TIM2\PYGZus{}IRQHandler}\PYG{p}{()\PYGZob{}}
+\PYG{+w}{	}\PYG{n}{TIM2}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{SR}\PYG{+w}{ }\PYG{o}{\PYGZam{}=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

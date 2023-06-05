@@ -35,7 +35,7 @@ int main(){
 	//set PG8 and PG7 as output
 	//RM: 8.4.1
 		GPIOG->MODER = (GPIOG->MODER | (1ul<<14) | (1ul<<16)) & ~(1ul<<15) & ~(1ul<<17);  
-delay();
+	delay();
 	//Config the EXTI
 	//Enable System clock SYSCFG
 		//RM 5.3.14
@@ -58,22 +58,22 @@ delay();
 	//enable update interrupt
 	//RM 18.4.3
 	TIM2->DIER |=1ul;
-	//f_TIM8 = f_SYSCLK/2 = 188e8/2 = 84e8
+	//f_TIM8 = f_SYSCLK/2 = 1.6e6/2 = 8e3*1e3
 	TIM2->CR1 &= ~(1ul<<3);
 	// freq calling interrupt = f/((PSC+1) * (ARR+1)); 
 	//set prescaler
-	TIM2->PSC = 8400ul-1;
+	TIM2->PSC = 8000ul-1;
 	//set auto-reload value
 	TIM2->ARR = 1000ul-1;
 	//* -1 bc count from 0. Read RM 18.3.1
-		
+	TIM2->CR1 |= 1ul;		
+
 		//prevent Flash from turning off in stop mode
 		//must go together
 		//Power down in deepsleep
 		PWR->CR &= ~(1ul<<1);
 		//Low power deepsleep
 		PWR->CR |= 1ul;
-		TIM2->CR1 |= 1ul;		
 		//NVIC setup
 	NVIC_SetPriorityGrouping(4); //2 preempt (bb00)
 	//set priority	

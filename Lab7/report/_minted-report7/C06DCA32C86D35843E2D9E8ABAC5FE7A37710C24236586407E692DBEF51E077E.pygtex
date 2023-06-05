@@ -1,0 +1,71 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZdq{}stm32f2xx\PYGZus{}hal.h\PYGZdq{}}\PYG{c+c1}{ }
+\PYG{n}{GPIO\PYGZus{}InitTypeDef}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{;}\PYG{+w}{ }
+\PYG{n}{TIM\PYGZus{}HandleTypeDef}\PYG{+w}{ }\PYG{n}{htim}\PYG{p}{;}\PYG{+w}{ }
+\PYG{n}{TIM\PYGZus{}OC\PYGZus{}InitTypeDef}\PYG{+w}{ }\PYG{n}{outputChannelInit}\PYG{p}{;}\PYG{+w}{ }
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{InitializeGPIO}\PYG{p}{()}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{RCC}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{AHB1ENR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}AHB1ENR\PYGZus{}GPIODEN}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{c+cm}{/* GPIO base configuration */}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Pin}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{GPIO\PYGZus{}PIN\PYGZus{}12}\PYG{o}{|}\PYG{n}{GPIO\PYGZus{}PIN\PYGZus{}15}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Mode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}MODE\PYGZus{}AF\PYGZus{}PP}\PYG{p}{;;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Speed}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}SPEED\PYGZus{}LOW}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{.}\PYG{n}{Alternate}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{GPIO\PYGZus{}AF2\PYGZus{}TIM4}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{HAL\PYGZus{}GPIO\PYGZus{}Init}\PYG{p}{(}\PYG{n}{GPIOD}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{GPIO\PYGZus{}InitStruct}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{+w}{ }
+\PYG{+w}{ }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{InitializeTimer}\PYG{p}{()}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+c1}{//1.6MHz baseclock}
+\PYG{+w}{	}\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{RCC}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{APB1ENR}\PYG{+w}{ }\PYG{o}{|=}\PYG{+w}{ }\PYG{n}{RCC\PYGZus{}APB1ENR\PYGZus{}TIM4EN}\PYG{+w}{ }\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{c+cm}{/* Time base configuration */}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Instance}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM4}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Period}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0x500}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{Prescaler}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1250ul}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{ClockDivision}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{RepetitionCounter}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{htim}\PYG{p}{.}\PYG{n}{Init}\PYG{p}{.}\PYG{n}{CounterMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}COUNTERMODE\PYGZus{}UP}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}Base\PYGZus{}Init}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{	}\PYG{p}{\PYGZcb{}}
+\PYG{+w}{	}
+\PYG{+w}{	}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{InitializePWMChannel}\PYG{p}{()}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{c+cm}{/* Channel base configuration */}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{OCMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}OCMODE\PYGZus{}PWM1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{Pulse}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0x400}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{OCFastMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}OCFAST\PYGZus{}DISABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{OCPolarity}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}OCPOLARITY\PYGZus{}HIGH}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}OC\PYGZus{}Init}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}OC\PYGZus{}ConfigChannel}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{outputChannelInit}\PYG{p}{,}\PYG{+w}{ }
+\PYG{+w}{	}\PYG{n}{TIM\PYGZus{}CHANNEL\PYGZus{}1}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{c+cm}{/* Enable TIM peripheral counter */}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}OC\PYGZus{}Start}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}CHANNEL\PYGZus{}1}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{InitializePWMChannel2}\PYG{p}{()}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Channel 2 base configuration */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{OCMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}OCMODE\PYGZus{}PWM1}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{Pulse}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mh}{0x100}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{OCFastMode}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}OCFAST\PYGZus{}DISABLE}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{outputChannelInit}\PYG{p}{.}\PYG{n}{OCPolarity}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}OCPOLARITY\PYGZus{}HIGH}\PYG{p}{;}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}OC\PYGZus{}Init}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}OC\PYGZus{}ConfigChannel}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{outputChannelInit}\PYG{p}{,}\PYG{+w}{ }
+\PYG{n}{TIM\PYGZus{}CHANNEL\PYGZus{}4}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{c+cm}{/* Enable TIM peripheral counter */}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{n}{HAL\PYGZus{}TIM\PYGZus{}OC\PYGZus{}Start}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{htim}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{TIM\PYGZus{}CHANNEL\PYGZus{}4}\PYG{p}{);}\PYG{+w}{ }
+\PYG{+w}{ }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{+w}{ }
+\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n+nf}{main}\PYG{p}{()}\PYG{+w}{ }
+\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{InitializeGPIO}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{InitializeTimer}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{n}{InitializePWMChannel}\PYG{p}{();}\PYG{+w}{ }
+\PYG{+w}{	}\PYG{n}{InitializePWMChannel2}\PYG{p}{();}
+\PYG{+w}{	 }\PYG{k}{for}\PYG{+w}{ }\PYG{p}{(;;)}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{p}{\PYGZob{}}\PYG{+w}{ }
+\PYG{+w}{	 }\PYG{p}{\PYGZcb{}}\PYG{+w}{ }
+\PYG{p}{\PYGZcb{}}\PYG{+w}{	}
+\PYG{+w}{	}
+\end{Verbatim}

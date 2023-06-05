@@ -1,0 +1,7 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Цель и постановка задачи}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Цель работы}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Постановка задачи}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Выполнение задания}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Создание волны с любым значением}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Результат работы}{3}{subsection.2.2}%

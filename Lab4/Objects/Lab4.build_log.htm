@@ -31,8 +31,20 @@ compiling Lab4.c...
 Lab4.c(124): warning:  #1-D: last line of file ends without a newline
   }
 Lab4.c: 1 warning, 0 errors
+compiling stm32f2xx_hal.c...
+compiling stm32f2xx_hal_cortex.c...
+compiling stm32f2xx_hal_dma.c...
+compiling stm32f2xx_hal_dma_ex.c...
+compiling stm32f2xx_hal_exti.c...
+compiling stm32f2xx_hal_flash.c...
+compiling stm32f2xx_hal_flash_ex.c...
+compiling stm32f2xx_hal_gpio.c...
+compiling stm32f2xx_hal_rcc.c...
+compiling stm32f2xx_hal_rcc_ex.c...
+compiling stm32f2xx_hal_tim.c...
+compiling stm32f2xx_hal_tim_ex.c...
 linking...
-Program Size: Code=1016 RO-data=420 RW-data=8 ZI-data=1632  
+Program Size: Code=1008 RO-data=420 RW-data=8 ZI-data=1632  
 ".\Objects\Lab4.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -45,19 +57,19 @@ Package Vendor: ARM
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.STM32F2xx_DFP.2.10.0.pack
-                Keil::Device:STM32Cube HAL:EXTI:1.2.7
+                Keil::Device:STM32Cube HAL:RCC:1.2.7
                 STMicroelectronics STM32F2 Series Device Support, Drivers and Examples
-   * Component: EXTI Version: 1.2.7
-   * Component: GPIO Version: 1.2.7
    * Component: RCC Version: 1.2.7
-   * Component: STM32Cube Framework Version: 1.0.0
    * Component: Flash Version: 1.2.7
+   * Component: GPIO Version: 1.2.7
+   * Component: EXTI Version: 1.2.7
+   * Component: TIM Version: 1.2.7
+   * Component: Startup Version: 2.2.1
    * Component: DMA Version: 1.2.7
+   * Component: STM32Cube Framework Version: 1.0.0
    * Component: Classic Version: 1.2.7
    * Component: Cortex Version: 1.2.7
-   * Component: Startup Version: 2.2.1
    * Component: Common Version: 1.2.7
-   * Component: TIM Version: 1.2.7
 
 <h2>Collection of Component include folders:</h2>
   F:\git\micro\Lab4\RTE
@@ -69,58 +81,58 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.6.0
-      Source file:   CMSIS\Core\Template\ARMv8-M\tz_context.c
-      Include file:  CMSIS\Core\Include\tz_context.h
       Source file:   CMSIS\Core\Template\ARMv8-M\main_s.c
-
-   * Component: Keil::Device:STM32Cube HAL:EXTI:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_exti.c
-
-   * Component: Keil::Device:STM32Cube HAL:GPIO:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_gpio.c
+      Include file:  CMSIS\Core\Include\tz_context.h
+      Source file:   CMSIS\Core\Template\ARMv8-M\tz_context.c
 
    * Component: Keil::Device:STM32Cube HAL:RCC:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc.c
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc_ex.c
-
-   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc.c
 
    * Component: Keil::Device:STM32Cube HAL:Flash:1.2.7
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_flash_ex.c
       Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_flash.c
 
-   * Component: Keil::Device:STM32Cube HAL:DMA:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma.c
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma_ex.c
+   * Component: Keil::Device:STM32Cube HAL:GPIO:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_gpio.c
 
-   * Component: Keil::Device:STM32Cube Framework:Classic:1.2.7
-      Include file:  MDK\Templates\Inc\main.h
-      Include file:  CMSIS\Driver\Config\RTE_Device.h
-      Source file:   MDK\Templates\Src\stm32f2xx_hal_msp.c
-      Include file:  MDK\Templates\Inc\stm32f2xx_it.h
-      Include file:  MDK\Templates\Inc\stm32f2xx_hal_conf.h
-      Include file:  MDK\Templates_LL\Inc\main.h
-      Source file:   MDK\Templates_LL\Src\main.c
-      Source file:   MDK\Templates\Src\stm32f2xx_it.c
-      Source file:   MDK\Templates\Src\main.c
+   * Component: Keil::Device:STM32Cube HAL:EXTI:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_exti.c
 
-   * Component: Keil::Device:STM32Cube HAL:Cortex:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cortex.c
+   * Component: Keil::Device:STM32Cube HAL:TIM:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim_ex.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim.c
 
    * Component: Keil::Device:Startup:2.2.1
       Source file:   MDK\Device\Source\ARM\STM32F2xx_OPT.s
       Include file:  Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h
-      Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\arm\startup_stm32f217xx.s
       Source file:   MDK\Device\Source\ARM\STM32F2xx_OTP.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\arm\startup_stm32f217xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32F2xx\Source\Templates\system_stm32f2xx.c
 
-   * Component: Keil::Device:STM32Cube HAL:Common:1.2.7
-      Include file:  Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c
+   * Component: Keil::Device:STM32Cube HAL:DMA:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma.c
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma_ex.c
 
-   * Component: Keil::Device:STM32Cube HAL:TIM:1.2.7
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim.c
-      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim_ex.c
+   * Component: ::Device:STM32Cube Framework:1.0.0 (API)
+
+   * Component: Keil::Device:STM32Cube Framework:Classic:1.2.7
+      Source file:   MDK\Templates_LL\Src\main.c
+      Include file:  MDK\Templates\Inc\stm32f2xx_it.h
+      Include file:  CMSIS\Driver\Config\RTE_Device.h
+      Include file:  MDK\Templates\Inc\stm32f2xx_hal_conf.h
+      Include file:  MDK\Templates\Inc\main.h
+      Source file:   MDK\Templates\Src\main.c
+      Include file:  MDK\Templates_LL\Inc\main.h
+      Source file:   MDK\Templates\Src\stm32f2xx_hal_msp.c
+      Source file:   MDK\Templates\Src\stm32f2xx_it.c
+
+   * Component: Keil::Device:STM32Cube HAL:Cortex:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cortex.c
+
+   * Component: Keil::Device:STM32Cube HAL:Common:1.2.7
+      Source file:   Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c
+      Include file:  Drivers\STM32F2xx_HAL_Driver\Inc\stm32f2xx_hal.h
 </pre>
 </body>
 </html>

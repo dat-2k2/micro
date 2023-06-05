@@ -1,0 +1,10 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Цель и постановка задачи}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Цель работы}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Постановка задачи}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Выполнение задания}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Направление светодиодов}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Установка прерывания}{4}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Результат работы}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Опыт A,B}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Опыт C,D}{7}{subsection.3.2}%

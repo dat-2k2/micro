@@ -1134,9 +1134,9 @@ Image Symbol Table
     SystemInit                               0x0800039d   Thumb Code     2  system_stm32f2xx.o(i.SystemInit)
     TIM2_IRQHandler                          0x0800039f   Thumb Code    16  lab4.o(i.TIM2_IRQHandler)
     delay                                    0x080003f9   Thumb Code    28  lab4.o(i.delay)
-    main                                     0x08000419   Thumb Code   322  lab4.o(i.main)
-    Region$$Table$$Base                      0x0800057c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800059c   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08000419   Thumb Code   314  lab4.o(i.main)
+    Region$$Table$$Base                      0x08000574   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08000594   Number         0  anon$$obj.o(Region$$Table)
     j                                        0x20000000   Data           4  lab4.o(.data)
     k                                        0x20000004   Data           4  lab4.o(.data)
     __libspace_start                         0x20000008   Data          96  libspace.o(.bss)
@@ -1150,9 +1150,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000221
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x000005a4, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x0000059c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x08000000, Size: 0x0000059c, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x08000000, Size: 0x00000594, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1222,8 +1222,8 @@ Memory Map of the image
     0x080003ae   0x00000022   Code   RO           10    i.__NVIC_EnableIRQ  lab4.o
     0x080003d0   0x00000028   Code   RO           11    i.__NVIC_SetPriority  lab4.o
     0x080003f8   0x00000020   Code   RO           12    i.delay             lab4.o
-    0x08000418   0x00000164   Code   RO           13    i.main              lab4.o
-    0x0800057c   0x00000020   Data   RO         2348    Region$$Table       anon$$obj.o
+    0x08000418   0x0000015c   Code   RO           13    i.main              lab4.o
+    0x08000574   0x00000020   Data   RO         2348    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000008, Max: 0xffffffff, ABSOLUTE)
@@ -1249,12 +1249,12 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       678         84          0          8          0     577363   lab4.o
+       670         84          0          8          0     577359   lab4.o
         64         26        388          0       1536        788   startup_stm32f217xx.o
          2          0          0          0          0        413   system_stm32f2xx.o
 
     ----------------------------------------------------------------------
-       744        110        420          8       1536     578564   Object Totals
+       736        110        420          8       1536     578560   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          0          0          0   (incl. Padding)
 
@@ -1303,15 +1303,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1016        126        420          8       1632     578564   Grand Totals
-      1016        126        420          8       1632     578564   ELF Image Totals
-      1016        126        420          8          0          0   ROM Totals
+      1008        126        420          8       1632     578560   Grand Totals
+      1008        126        420          8       1632     578560   ELF Image Totals
+      1008        126        420          8          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 1436 (   1.40kB)
+    Total RO  Size (Code + RO Data)                 1428 (   1.39kB)
     Total RW  Size (RW Data + ZI Data)              1640 (   1.60kB)
-    Total ROM Size (Code + RO Data + RW Data)       1444 (   1.41kB)
+    Total ROM Size (Code + RO Data + RW Data)       1436 (   1.40kB)
 
 ==============================================================================
 

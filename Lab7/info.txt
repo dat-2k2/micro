@@ -1,0 +1,10 @@
+pwm = 650ms
+period = 3200
+arr = 1280
+psc = 4x10^5
+заполнение 10 15:07, T = 1250ms, Ton = 125ms
+
+- Pull-width triggering mostly for glitches 
+- Trigger mode: the T cursor points to part which sastifies the finding value. 
+For example: slope + goes up -> points to upside slope. 
+

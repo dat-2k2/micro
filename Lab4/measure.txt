@@ -6,6 +6,6 @@ if ARR = 10000-1,=> period = 1s*5,2 = 5,2s (with img)
 
 2. from 1. 
 
-3. 40us - 40us ?
+3. 1ms -1ms
 
-4. 1ms. PG7 yellow, PG8 blue. 
+4. 1ms, 90. PG7 yellow, PG8 blue. 
